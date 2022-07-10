@@ -3,9 +3,13 @@
 pipeline {
   
   agent any
+  
+  tools {
+    maven 'maven-3.6.3' 
+  }
       
   environment {
-    GIT_REPO = "https://github.com/spring-projects/spring-petclinic.git"
+    GIT_REPO = "https://github.com/saschascherrer/spring-petclinic.git"
     GIT_BRANCH = "main"
   }
   
@@ -41,6 +45,27 @@ pipeline {
       }
     }    
 
+    stage('Deploy Docker Image to Artifactory') {
+      environment {
+        JFROG_CREDS = credentials('jfrog-creds')
+      }
+      steps {
+        sh 'buildah login -u $JFROG_CREDS_USR -p $JFROG_CREDS_PSW saschascherrer.jfrog.io'
+        sh 'buildah push localhost/spring-petclinic:latest docker://saschascherrer.jfrog.io/default-docker-virtual/spring-petclinic:latest'
+      }
+    }
+    
+  }
+  
+  post {
+    
+    always {
+      junit testResults: 'build/reports/**/*.xml', allowEmptyResults: true
+    }
+    
+    success {
+      archiveArtifacts artifacts: 'docker-image.tar', fingerprint: true
+    }
+    
   }
 }
-
