@@ -10,22 +10,27 @@ pipeline {
   }
   
   stages {
-    
     stage('Git: Clone main branch') {
       steps {
         git branch: GIT_BRANCH, url: GIT_REPO
       }
     }
     
-    stage('Compile the code') {
+    stage ('Maven: Compile'){
+      steps {
+        sh './mvnw clean compile'
+      }
+    }
+    
+    stage('Maven: Test') {
        steps {
-         sh 'echo COMPILE'
+         sh './mvnw test'
        }
     }
-
-    stage('Run the tests') {
+    
+    stage('Maven: Package') {
        steps {
-         sh 'echo TEST'
+         sh './mvnw package'
        }
     }
     
