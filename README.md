@@ -1,7 +1,13 @@
 # Jenkins CI Example
 This repository showcases a CI-Pipeline with Jenkins for the
 spring-petclinic demo project. You can find the original source code
-at  https://github.com/spring-projects/spring-petclinic
+at https://github.com/spring-projects/spring-petclinic.
+It is forked at https://github.com/saschascherrer/spring-petclinic
+so we can keep the Dockerfile and Jenkinsfile in the same Git repository
+as the application source code. It is best practice to version the
+source code and the build instructions together, so we have one consistent
+version we can go back to if we need to. I refer to this fork as
+`spring-petclinic` repository (i.e. I do not mean the original).
 
 ## What to expect
 In this example we will cover
