@@ -5,10 +5,15 @@ jenkins:
       users:
        - id: admin
          password: ${JENKINS_ADMIN_PASSWORD}
+       - id: reader
+         password: ${JENKINS_READER_PASSWORD}
   authorizationStrategy:
     globalMatrix:
       permissions:
         - "USER:Overall/Administer:admin"
+        - "GROUP:Overall/Read:authenticated"
+        - "GROUP:Job/Build:authenticated"
+        - "GROUP:Job/Read:authenticated"
   remotingSecurity:
       enabled: true
 
@@ -18,21 +23,42 @@ security:
     - global:
         strategy: triggeringUsersAuthorizationStrategy
 
+credentials:
+  system:
+    domainCredentials:
+    - credentials:
+      - usernamePassword:
+          id: 'jfrog-creds'
+          username: ${JFROG_ACCOUNT_USER}
+          password: ${JFROG_ACCOUNT_PASSWORD}
+          description: 'DockerHub account'
+          scope: GLOBAL
+
 unclassified:
   location:
     url: https://jenkins.lab.saschascherrer.de
 
+tool:
+  maven:
+    installations:
+    - name: "maven-3.6.3"
+      properties:
+      - installSource:
+          installers:
+          - maven:
+              id: "3.6.3"
+              
 jobs:
   - script: >
       pipelineJob('spring-petclinic') {
-        logRotator(5, 2)
+        logRotator(5, 20)
         definition {
           cpsScm {
               lightweight(true)
               scm {      
                   git {
                       remote {
-                          url("https://github.com/saschascherrer/jenkins-ci-example.git")
+                          url("https://github.com/saschascherrer/spring-petclinic.git")
                           branch("main")
                       }
                   }
