@@ -1,0 +1,40 @@
+#!/bin/env groovy
+
+pipeline {
+  
+  agent any
+      
+  environment {
+    GIT_REPO = "https://github.com/spring-projects/spring-petclinic.git"
+    GIT_BRANCH = "main"
+  }
+  
+  stages {
+    
+    stage('Git: Clone main branch') {
+      steps {
+        git branch: GIT_BRANCH, url: GIT_REPO
+      }
+    }
+    
+    stage('Compile the code') {
+       steps {
+         sh 'echo COMPILE'
+       }
+    }
+
+    stage('Run the tests') {
+       steps {
+         sh 'echo TEST'
+       }
+    }
+    
+    stage('Package as Docker Image') {
+       steps {
+         sh 'echo PACKAGE'
+       }
+    }
+
+  }
+}
+

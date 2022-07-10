@@ -21,3 +21,26 @@ security:
 unclassified:
   location:
     url: https://jenkins.lab.saschascherrer.de
+
+jobs:
+  - script: >
+      pipelineJob('spring-petclinic') {
+        logRotator(5, 2)
+        definition {
+          cpsScm {
+              lightweight(true)
+              scm {      
+                  git {
+                      remote {
+                          url("https://github.com/saschascherrer/jenkins-ci-example.git")
+                          branch("main")
+                      }
+                  }
+              }
+              scriptPath("jenkins-pipeline/Jenkinsfile")
+          }
+        }
+        triggers {
+          cron("H/15 3 1-5 * *")
+        }
+      }
