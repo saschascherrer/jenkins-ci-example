@@ -73,7 +73,7 @@ this repository, build the custom jenkins image and run it:
 ```
 $ git clone https://github.com/saschascherrer/jenkins-ci-example.git
 $ cd jenkins-ci-example/jenkins-server
-$ sudo docker build -t jenkins:casc
+$ sudo docker build -t jenkins:casc .
 $ sudo docker run \
   --privileged \
   --detach \
@@ -136,3 +136,18 @@ Loaded image ID: sha256:d308d93fcbf9ee144ea84635093b324770c8ea6b164108c0b7981215
 $ sudo docker run --rm -d --name petclinic --publish 9000:8080 d308d93fcbf9ee144ea84635093b324770c8ea6b164108c0b79812159095897e
 ```
 The image ID will likely differ on your system, so adapt the run command accordingly.
+
+## Use and modify.
+Feel free to use this example and expand on it.
+To change the repository, have a look in the `Jenkinsfile` and the 
+`casc.yaml` file since both of them refer to the source repository.
+To change settings of Jenkins, the place to go is `casc.yaml`. To
+add additional plugins, edit the `plugins.txt`.
+To change the docker registry or the name of the exported docker
+image, you can replace the hardcoded values in the `Jenkinsfile`.
+
+## Note regarding `jenkins-pipeline`
+The contents of `jenkins-pipeline` are a copy of their respective
+files in the spring-petclinic repository. They are only included for
+completenes. The files are always taken from the spring-petclinic
+repository by Jenkins.
