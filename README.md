@@ -109,9 +109,9 @@ Their passwords were set through environment variables when you started the
 The CI-pipeline is set up to read the pipeline configuration from the 
 Jenkinsfile in jenkins-pipeline/Jenkinsfile at the Git-Repository
 github.com/saschascherrer/spring-petclinic.
-Jenkins lools for new commits on the main branch of this repository
-every 15 minutes. You can also trigger a build manually aptly named
-button after you chose the `spring-petclinic` project.
+The pipeline is configured to perform a nightly build. You can also trigger 
+a build manually aptly named button after you chose the `spring-petclinic` 
+project.
 
 ## Run the resulting image
 To run the image built by Jenkins, the easiest way is to pull it
