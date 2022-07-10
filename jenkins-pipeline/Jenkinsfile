@@ -33,12 +33,13 @@ pipeline {
          sh './mvnw package'
        }
     }
-    
+
     stage('Package as Docker Image') {
-       steps {
-         sh 'echo PACKAGE'
-       }
-    }
+      steps {
+        sh 'buildah bud -t localhost/spring-petclinic:latest'
+        sh 'buildah push localhost/spring-petclinic:latest docker-archive:docker-image.tar'
+      }
+    }    
 
   }
 }
