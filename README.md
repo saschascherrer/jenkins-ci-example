@@ -9,6 +9,9 @@ In this example we will cover
 2) How to define a CI Pipeline for a Java Spring Application
 3) How to build and publish a Java Application to a Docker Registry
 
+Note: I use the dollar sign `$` to indicate a (bash) shell-prompt.
+You do not need to type or copy this sign at the beginning of a line.
+
 ## Prerequisites
 We run Jenkins as Docker-compatible container. This gives us great flexibility
 as to where we can execute this example. As long as you have a **working 
@@ -118,7 +121,7 @@ $ docker run \
 You can access the webapplication at http://localhost:9000. If you are
 done looking around, you can terminate the container by executing
 ```
-docker stop petclinic
+$ docker stop petclinic
 ```
 The container will be automatically deleted, because we specified the
 `--rm` flag in the `docker run` command.
